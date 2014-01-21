@@ -23,3 +23,11 @@
 <br />
 
 <%= link_to 'New User', new_user_path %>
+
+<div>current username: <%= current_user.try(:username) %></div>
+
+<div>online numbers: <%= "123" %></div>
+
+<%= link_to "sign in", signin_path, method: "get" %>
+
+<%= link_to "sign out", signout_path, method: "delete" %>
