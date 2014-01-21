@@ -31,7 +31,7 @@
   </div>
 <% else %>
   <div>
-    你好，陌生人！你没有登录，或者你还没有注册，但是你已经浏览这个页面 <%= ((Time.now - cookies[:last_visit].to_time) / 60).to_i %> 分钟了。
+    你好，陌生人！你没有登录，或者你还没有注册，但是你已经浏览这个页面 <%= cookies[:current_times] %> 分钟了。
     <%= link_to "sign in", signin_path, method: "get" %>
   </div>
 <% end %>
