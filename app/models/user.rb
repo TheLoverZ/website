@@ -1,6 +1,9 @@
 class User < ActiveRecord::Base
-  attr_accessible :password, :username, :sign_times, :last_visit, :total_signin_times
-  before_save { self.username = username.downcase }
+  attr_accessible :password, :username, :sign_times, :last_visit, :total_signin_times, :anonymous
+  before_save {
+    self.username = username.downcase
+    self.anonymous = false
+  }
   before_create :create_remember_token
 
   def User.new_remember_token
