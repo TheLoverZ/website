@@ -11,6 +11,7 @@ require 'Digest'
   end
 
   def signed_in?
+    cookies[:last_visit] = Time.now if cookies[:last_visit].nil?
     current_times = ((Time.now - cookies[:last_visit].to_time) / 60).to_i
     if current_user
       current_user.update_attribute(:total_signin_times, current_user.total_signin_times + current_times)
@@ -46,8 +47,6 @@ require 'Digest'
       $redis.keys.each do |k|
         num += 1 if k.size == 32
       end
-    else
-      num = 0
     end
     num
   end
@@ -65,6 +64,8 @@ require 'Digest'
     current_user.update_attribute(:remember_token, User.encrypt(User.new_remember_token))
     self.current_user = nil
     cookies.delete(:remember_token)
+    cookies.delete(:last_visit)
+    cookies.delete(:current_times)
   end
 
   private
