@@ -23,16 +23,6 @@ require 'Digest'
     !current_user.nil?
   end
 
-  def record_sessions
-    if current_user
-      name = current_user.username
-    else
-      name = Digest::MD5.hexdigest "#{request.env['HTTP_USER_AGENT']} #{request.env['REMOTE_ADDR']}"
-    end
-    $redis.set(name, Time.now)
-    $redis.expire(name, 5 * 60)
-  end
-
   def online_num(opt)
     case opt
     when "all" # all users num
@@ -69,6 +59,16 @@ require 'Digest'
   end
 
   private
+  def record_sessions
+    if current_user
+      name = current_user.username
+    else
+      name = Digest::MD5.hexdigest "#{request.env['HTTP_USER_AGENT']} #{request.env['REMOTE_ADDR']}"
+    end
+    $redis.set(name, Time.now)
+    $redis.expire(name, 5 * 60)
+  end
+
   def set_last_visit_time
     cookies.permanent[:last_visit] = Time.now
   end
