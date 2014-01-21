@@ -73,6 +73,6 @@ require 'Digest'
   end
 
   def set_user_signin_times(user)
-    user.update_attribute(:signin_times, user_signin_times + 1)
+    user.update_attribute(:signin_times, user.signin_times + 1)
   end
 end
