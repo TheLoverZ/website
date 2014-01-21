@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :password, :username, :sign_times, :last_visit, :total_signin_times, :anonymous
+  attr_accessible :password, :username, :sign_times, :total_signin_times
   before_save {
     self.username = username.downcase
   }
