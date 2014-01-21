@@ -6,7 +6,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @users }
+      format.json { render json: {
+        :signed_users => online_num("signed"),
+        :anonymous_users => online_num("anony")
+        }
+      }
     end
   end
 
