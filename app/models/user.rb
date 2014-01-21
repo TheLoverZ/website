@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_accessible :password, :username, :sign_times, :last_visit, :total_signin_times, :anonymous
   before_save {
     self.username = username.downcase
-    self.anonymous = false
+    self.total_signin_times = 0 if self.total_signin_times.nil?
   }
   before_create :create_remember_token
 
