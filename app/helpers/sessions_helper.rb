@@ -32,8 +32,24 @@ require 'Digest'
     $redis.expire(name, 5 * 60)
   end
 
-  def online_num
-    $redis.keys.count
+  def online_num(opt)
+    case opt
+    when "all" # all users num
+      num = $redis.keys.count
+    when "anony" # anonymous users num
+      num = 0
+      $redis.keys.each do |k|
+        num += 1 if k.size != 32
+      end
+    when "signed" # signed users num
+      num = 0
+      $redis.keys.each do |k|
+        num += 1 if k.size == 32
+      end
+    else
+      num = 0
+    end
+    num
   end
 
   def current_user=(user)
