@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140121064422) do
+ActiveRecord::Schema.define(:version => 20140121071108) do
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20140121064422) do
     t.string   "remember_token"
     t.string   "password_digest"
     t.integer  "signin_times"
-    t.time     "last_visit"
+    t.datetime "last_visit"
     t.integer  "total_signin_times"
   end
 
