@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       format.json { render json: {
         :signed_users => online_num("signed"),
         :anonymous_users => online_num("anony")
-        }
+        }.to_json
       }
     end
   end
