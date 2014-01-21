@@ -24,18 +24,19 @@ require 'Digest'
   end
 
   def online_num(opt)
+    md5_regex = /^([a-fA-F0-9]{32})$/
     case opt
     when "all" # all users num
       num = $redis.keys.count
     when "anony" # anonymous users num
       num = 0
       $redis.keys.each do |k|
-        num += 1 if k.size != 32
+        num += 1 if (k =~ md5_regex)
       end
     when "signed" # signed users num
       num = 0
       $redis.keys.each do |k|
-        num += 1 if k.size == 32
+        num += 1 if !(k =~ md5_regex)
       end
     end
     num
