@@ -22,18 +22,22 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%= link_to '注册', new_user_path %>
+
+<div>
+  现在总共有 <%= online_num("signed") %> 个注册用户在查看这个网站，有 <%= online_num("anony") %> 个陌生人在查看这个网站
+</div>
 
 <% if signed_in? %>
   <div>
     <%= current_user.username %> 谢谢你登录了我们网站！你已经登录了 <%= current_user.signin_times %> 次了，总共登录时间是 <%= current_user.total_signin_times %> 分钟。
-    <%= link_to "sign out", signout_path, method: "delete" %>
   </div>
+  <div><%= link_to "注销", signout_path, method: "delete" %></div>
 <% else %>
   <div>
     你好，陌生人！你没有登录，或者你还没有注册，但是你已经浏览这个页面 <%= cookies[:current_times] %> 分钟了。
-    <%= link_to "sign in", signin_path, method: "get" %>
   </div>
+  <div><%= link_to "登录", signin_path, method: "get" %></div>
 <% end %>
 
-<div>online numbers: <%= online_num %></div>
+<div>在线总人数：<%= online_num("all") %></div>
