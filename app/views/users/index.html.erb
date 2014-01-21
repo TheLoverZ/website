@@ -24,10 +24,16 @@
 
 <%= link_to 'New User', new_user_path %>
 
-<div>current username: <%= current_user.try(:username) %></div>
+<% if signed_in? %>
+  <div>
+    <%= current_user.username %> 谢谢你登录了我们网站！你已经登录了 <%= current_user.signin_times %> 次了，总共登录时间是 <%= current_user.total_signin_times %> 分钟。
+    <%= link_to "sign out", signout_path, method: "delete" %>
+  </div>
+<% else %>
+  <div>
+    你好，陌生人！你没有登录，或者你还没有注册，但是你已经浏览这个页面 <%= ((Time.now - cookies[:last_visit].to_time) / 60).to_i %> 分钟了。
+    <%= link_to "sign in", signin_path, method: "get" %>
+  </div>
+<% end %>
 
-<div>online numbers: <%= "123" %></div>
-
-<%= link_to "sign in", signin_path, method: "get" %>
-
-<%= link_to "sign out", signout_path, method: "delete" %>
+<div>online numbers: <%= current_user_numbers %></div>
