@@ -50,7 +50,7 @@ class UsersController < ApplicationController
       if @user.save
         @user.signin_times = 1
         sign_in @user
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to root_path }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }
