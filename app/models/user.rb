@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   }
   before_create :create_remember_token
 
+  validates :username, uniqueness: true
+
   def User.new_remember_token
     SecureRandom.urlsafe_base64
   end
